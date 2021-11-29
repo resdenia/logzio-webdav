@@ -1,2 +1,4 @@
 sfcc.env
 .env
+/__pycache__
+/helpers/__pycache__
