@@ -1,0 +1,8 @@
+pygrok
+webdavclient3
+watchdog
+logzio-python-handler
+python-decouple
+python-json-logger
+numpy
+asyncio
