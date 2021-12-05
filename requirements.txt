@@ -6,3 +6,4 @@ python-decouple
 python-json-logger
 numpy
 asyncio
+codecs
