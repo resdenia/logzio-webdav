@@ -22,16 +22,19 @@ git clone https://github.com/resdenia/logzio-webdav.git logzio-webdav
 
 2. Define parameters
 
-LOGZIO_LISTENER_URL=
-LOGZIO_SHIPPING_KEY=
+| Parameter | Description | Require |
+| --------- | :---------: | ------: |
 
-WEBDAV_USERNAME=
-WEBDAV_PASSWORD=
-SEND_HISTORICAL_LOGS=
-SEND_UNPARSE_LOGS=
-WEBDAV_DIR_LINK=
-WEBDAV_DIR=
-GROK_PATTERNS=
+| LOGZIO_LISTENER_URL | logz listener | YES |
+| LOGZIO_SHIPPING_KEY | logz listener | YES |
+
+| WEBDAV_USERNAME | logz listener | YES |
+| WEBDAV_PASSWORD | logz listener | YES |
+| SEND_HISTORICAL_LOGS | logz listener | YES |
+| SEND_UNPARSE_LOGS | logz listener | YES |
+| WEBDAV_DIR_LINK | logz listener | YES |
+| WEBDAV_DIR | logz listener | YES |
+| GROK_PATTERNS | logz listener | YES |
 
 3. Use `docker` to build a container from this image:
 
@@ -40,66 +43,6 @@ docker build -t 'nr-logs-for-sfcc:latest' ./nr-logs-for-sfcc
 ```
 
 ## Usage
-
-1. Obtain an Insights API Insert key from your account, [as described here](https://docs.newrelic.com/docs/telemetry-data-platform/ingest-manage-data/ingest-apis/use-event-api-report-custom-events#register).
-2. Use the following docker command to run your container.
-
-```sh
-docker run -d -e "NEWRELIC_API_KEY=<your_Insert_API_key>" -e "SFCC_HOSTNAME=<your_sfcc_host>" -e "SFCC_CLIENT_ID=<your_sfcc_client_id>" -e "SFCC_CLIENT_SECRET=<your_sfcc_client_secret>" nr-logs-for-sfcc:latest
-```
-
-- If you prefer to store these environment variables in a file like [this example](./sfcc.env), you can run docker like so:
-
-```sh
-docker run -d --env-file=sfcc.env nr-logs-for-sfcc:latest
-```
-
-3. Login to New Relic and open the [Logs UI](https://one.newrelic.com/launcher/logger.log-launcher), look for entries with `sfcc.xxxx` as their service_name.
-
-## Troubleshooting
-
-If you are not seeing any logs in New Relic Logs:
-
-1. _Wait a few minutes!_ As there are a couple steps between your logs and New Relic, it can take a few minutes for them to start rolling in, especially if you have many different log types or high log volumes.
-2. Connect to your docker container at command-line and review the logs. All of the pertinent logs (`cctail.log`, `fluentd.log` and `supervisord.log`) are found in the root directory. The following example also shows how to get the container ID easily and re-use that for connecting:
-
-```sh
-thiscontainer=$(docker ps | grep nr-logs-for-sfcc:latest | head -n1 | awk '{print $1;}')
-docker exec -t -i $thiscontainer /bin/sh
-```
-
-- What each log will tell you:
-  - `fluentd.log` - issues with the New Relic Insert API Key or log parsing rules. Messages like `[error]: #0 Response was 403 {}` indicate an invalid or unset key.
-  - `cctail.log` - issues with your SFCC credentials.
-  - `supervisord.log` - container-wide issues, i.e. those caused by changes made to `Dockerfile`, `entrypoint.sh` or `supervisord.conf`.
-
-3. You can run cctail in Debug Mode, using the `CCTAIL_ARGS` environment variable at `docker run` time. This will send more information into `cctail.log` about what logs are being polled, and how many log records are being reported from each.
-
-```sh
-docker run -d -e "CCTAIL_ARGS=-d" -e "NEWRELIC_API_KEY=<your_Insert_API_key>" -e "SFCC_HOSTNAME=<your_sfcc_host>" -e "SFCC_CLIENT_ID=<your_sfcc_client_id>" -e "SFCC_CLIENT_SECRET=<your_sfcc_client_secret>" nr-logs-for-sfcc:latest
-```
-
-or (if using an env file):
-
-```sh
-docker run -d -e "CCTAIL_ARGS=-d" -env-file=sfcc.env nr-logs-for-sfcc:latest
-```
-
-## Support
-
-New Relic has open-sourced this project. This project is provided AS-IS WITHOUT WARRANTY OR DEDICATED SUPPORT. Issues and contributions should be reported to the project here on GitHub. We encourage you to bring your experiences and questions to the [Explorers Hub](https://discuss.newrelic.com) where our community members collaborate on solutions and new ideas.
-
-## Contributing
-
-We encourage your contributions to improve New Relic Logs for Salesforce Commerce Cloud! Keep in mind when you submit your pull request, you'll need to sign the CLA via the click-through using CLA-Assistant. You only have to sign the CLA one time per project.
-
-If you have any questions, or to execute our corporate CLA, required if your contribution is on behalf of a company, please drop us an email at opensource@newrelic.com.
-
-**A note about vulnerabilities**
-
-As noted in our [security policy](../../security/policy), New Relic is committed to the privacy and security of our customers and their data. We believe that providing coordinated disclosure by security researchers and engaging with the security community are important means to achieve our security goals.
-
-If you believe you have found a security vulnerability in this project or any of New Relic's products or websites, we welcome and greatly appreciate you reporting it to New Relic through [HackerOne](https://hackerone.com/newrelic).
 
 ## License
 
