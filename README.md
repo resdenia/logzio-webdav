@@ -1,16 +1,15 @@
 # logzio-webdav
 
-A Docker image purpose-built to monitor Salesforce Commerce Cloud (fka Demandware) logs using New Relic Logs.
+A Docker image purpose-built to monitor Salesforce Commerce Cloud (fka Demandware) logs using Logzio Python shipper.
 
 Python Application that includes modules:
 
 pygrok
 webdavclient3
-watchdog
 logzio-python-handler
 python-decouple
 python-json-logger
-numpy
+codecs
 
 ## Installation
 
