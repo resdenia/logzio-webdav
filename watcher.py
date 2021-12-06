@@ -197,7 +197,6 @@ class Watcher:
                         buffer.getvalue()), "base64").decode()
                     unpickled = pickle.loads(
                         codecs.decode(pickled.encode(), "base64"))
-                    # data = pickle.loads(buffer.getvalue())
                     self.send_modified_file(
                         ROOT_DATA_STATE[splited_file], splited_file, unpickled, ROOT_DATA_STATE)
                     with open('data_status.json', 'w') as outfile:
@@ -222,7 +221,7 @@ class Watcher:
                     continue
 
             else:
-                print('found  changes file-created')
+                print('found changes file-created')
                 ROOT_DATA_STATE[splited_file] = {'name': ''}
                 ROOT_DATA_STATE[splited_file]['name'] = splited_file
                 ROOT_DATA_STATE[splited_file]['modified'] = file['modified']
@@ -254,7 +253,7 @@ class Watcher:
             while True:
                 time.sleep(5)
                 self.file_manager()
-                print('here')
+                print('ping')
         except:
             print("Error")
 
