@@ -17,7 +17,7 @@ numpy
 1. Use `git` to clone this repository into a suitable folder:
 
 ```sh
-git clone https://github.com/newrelic-experimental/newrelic-logs-for-salesforce-commerce-cloud.git nr-logs-for-sfcc
+git clone https://github.com/resdenia/logzio-webdav.git logzio-webdav
 ```
 
 2. Define parameters
