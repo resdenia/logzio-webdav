@@ -32,7 +32,7 @@ class Watcher:
     ROOT_DATA_STATE = {}
     WEBDAV_DIR_LINK = config("WEBDAV_DIR_LINK")
 
-    def send_created_file(self, file_data, filename, buffer, ROOT_DATA_STATE):
+    def send_logs_from_created_file(self, file_data, filename, buffer, ROOT_DATA_STATE):
 
         if config('SEND_HISTORICAL_LOGS') == 'False':
             # take name of the file
@@ -50,10 +50,10 @@ class Watcher:
                 with open('data_status.json', 'w') as outfile:
                     json.dump(updated_root_data, outfile)
             else:
-                self.send_modified_file(
+                self.send_logs_from_modified_file(
                     file_data, filename, buffer, ROOT_DATA_STATE)
 
-    def send_modified_file(self, file_data, filename, buffer, ROOT_DATA_STATE):
+    def send_logs_from_modified_file(self, file_data, filename, buffer, ROOT_DATA_STATE):
         if not '.DS_Store' in filename:
             # Open file and read
             buffer_parsed = buffer.decode().splitlines()
@@ -197,7 +197,7 @@ class Watcher:
                         buffer.getvalue()), "base64").decode()
                     unpickled = pickle.loads(
                         codecs.decode(pickled.encode(), "base64"))
-                    self.send_modified_file(
+                    self.send_logs_from_modified_file(
                         ROOT_DATA_STATE[splited_file], splited_file, unpickled, ROOT_DATA_STATE)
                     with open('data_status.json', 'w') as outfile:
                         json.dump(ROOT_DATA_STATE, outfile)
@@ -214,7 +214,7 @@ class Watcher:
                         buffer.getvalue()), "base64").decode()
                     unpickled = pickle.loads(
                         codecs.decode(pickled.encode(), "base64"))
-                    self.send_modified_file(
+                    self.send_logs_from_modified_file(
                         ROOT_DATA_STATE[splited_file], splited_file, unpickled, ROOT_DATA_STATE)
                     with open('data_status.json', 'w') as outfile:
                         json.dump(ROOT_DATA_STATE, outfile)
@@ -241,7 +241,7 @@ class Watcher:
                         unpickled = pickle.loads(
                             codecs.decode(pickled.encode(), "base64"))
 
-                        self.send_created_file(
+                        self.send_logs_from_created_file(
                             ROOT_DATA_STATE[splited_file], splited_file, unpickled, ROOT_DATA_STATE)
                 except Exception as e:
                     print(e)
