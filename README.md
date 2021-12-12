@@ -39,4 +39,4 @@ git clone https://github.com/resdenia/logzio-webdav.git logzio-webdav
 
 ## License
 
-logz.io for WebDav is licensed under the [Apache 2.0](http://apache.org/licenses/LICENSE-2.0.txt) License.
+logz.io for WebDav is licensed under the [MIT](https://github.com/logzio/webdav-fetcher/blob/master/LICENSE) License.
