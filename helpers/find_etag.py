@@ -1,11 +1,11 @@
-def find_e(key, value):
-    for k, v in value.items():
-        if k == key:
-            yield v
-        elif isinstance(v, dict):
-            for result in find_e(key, v):
-                yield result
-        elif isinstance(v, list):
-            for d in v:
-                for result in find_e(key, d):
-                    yield result
+from glob import glob
+import json
+
+
+def find_e():
+    searched = []
+    for f_name in glob('data_state/*.json'):
+        with open(f_name, 'r') as json_file:
+            data = json.load(json_file)
+            searched.append(data['etag'])
+    return searched
