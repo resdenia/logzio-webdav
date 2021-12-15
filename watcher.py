@@ -13,8 +13,7 @@ import time
 import logging
 import logging.config
 from decouple import config
-import numpy as np
-import os
+
 from helpers.grok_validator import gr_validator
 from helpers.logz_conf import config_data
 from helpers.webdav import auth_basic
