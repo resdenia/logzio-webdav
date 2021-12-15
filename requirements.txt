@@ -3,4 +3,3 @@ webdavclient3
 logzio-python-handler
 python-decouple
 python-json-logger
-codecs
